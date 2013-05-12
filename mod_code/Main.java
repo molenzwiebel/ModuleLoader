@@ -71,8 +71,13 @@ public class Main {
 						version = undercastAnnotation.version();
 					}
 				}
-				System.out.println("Loaded module " + name + " v"+version);
-				this.loadedModules.add((IModule) c.newInstance());
+                Object obj = c.newInstance();
+                if (obj instanceof IModule) {
+                    System.out.println("Loaded module " + name + " v"+version);
+                    this.loadedModules.add((IModule) c.newInstance());
+                } else {
+                    System.out.println("Nag the author of "+name+" about the fact he doesn't implement IModule!");
+                }
 			}
 		}
 	}
